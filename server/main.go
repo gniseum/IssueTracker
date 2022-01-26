@@ -22,7 +22,7 @@ func main() {
     // Create
     router.POST("/issue/create", routes.AddIssue)
 
-    // Remove
+    // Read
     router.GET("/taskedUser/:taskedUser", routes.GetIssuesByTaskedUser)
     router.GET("/issues", routes.GetIssues)
     router.GET("/issue/:id/", routes.GetIssueById)
