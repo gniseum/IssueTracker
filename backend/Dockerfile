@@ -1,0 +1,25 @@
+FROM golang as builder
+
+RUN apt install ca-certificates git
+
+WORKDIR /build/api
+
+COPY go.mod ./
+
+RUN go mod download
+
+COPY backend/src ./
+
+RUN CGO_ENABLED=0 go build -o api
+
+# post build stage
+
+FROM alpine
+
+WORKDIR /root
+
+COPY --from=builder /build/api/api .
+
+EXPOSE 8080
+
+CMD ["./trackerBackend"]
